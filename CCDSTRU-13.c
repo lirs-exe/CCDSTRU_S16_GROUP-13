@@ -1,6 +1,29 @@
 #include <stdio.h>
 #include <string.h>
 
+Remove()
+{
+}
+
+Replace()
+{
+}
+
+Expand()
+{
+}
+
+Update()
+{}
+
+NextPlayerMove()
+{}
+
+void GameOver()
+{
+	
+}
+
 int main()
 {
 	int i;
