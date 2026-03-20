@@ -80,7 +80,14 @@ NextPlayerMove(pos)
 	if (R == (R U pos) && S = (S U pos) && good == 1)
 		!over && start && go = 1;
 
-	if (R == (R U pos) && S = (S U pos) && good == 1)
+	if (B == (B U pos) && S = (S U pos) && good == 1)
+		!over && start && go = 0;
+	
+	if (start == 0)
+		start && R = 1 && B = 1;
+	
+	if (good == 1 && go == 0 && val = val + 1)
+		!over && good;
 }
 
 void GameOver()
