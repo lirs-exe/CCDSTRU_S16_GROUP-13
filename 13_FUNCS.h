@@ -1,4 +1,4 @@
-void playedExitCard()
+void playedEndCard()
 {
 	printf("\n=======================================\n");
 	printf("%s Won! Thank you for Playing!\n", );
@@ -14,7 +14,7 @@ void GameProper()
 		{playedExitCard()};
 }
 
-void ExitCard()
+void EndCard()
 {
 	printf("\n=======================================\n");
 	printf("	Thank you for Playing!\n");
