@@ -12,6 +12,7 @@ int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal
 			isEqual = 0;
 		}
 	}
+	return isEqual;
 }
 
 void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-) an element from an array
