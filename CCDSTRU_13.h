@@ -118,3 +118,5 @@ typedef row[8]; // There are 9 rows, but we put no allowance for specificity and
 	int good = 0, found = 0;
 	int go = 1;
 	int start = 1, ;
+
+	int choice1; // stores the player's entry to the "start" prompt. is passed to the game ui function
