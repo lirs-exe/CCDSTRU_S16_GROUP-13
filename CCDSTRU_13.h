@@ -1,5 +1,6 @@
 
-typedef char phrase[2];
+typedef char phrase[2]; // 2 == rows - 1. Makes sure there are exactly Three Rows
+typedef row[8]; // There are 9 rows, but we put no allowance for specificity and ease of access
 
 
 int Remove(M pos) // pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
