@@ -1,3 +1,5 @@
+// feel free to keep editing/refining the function codes, i'll continue figuring out the sequence of calling the functions in my own IDE. thanku !!
+
 void EndCard()
 {
 	printf("\n=======================================\n");
