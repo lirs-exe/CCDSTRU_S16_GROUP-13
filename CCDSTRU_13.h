@@ -1,8 +1,20 @@
 
 typedef char phrase[2]; // 2 == rows - 1. Makes sure there are exactly Three Rows
-typedef int pair[1]; // ordered pairs
-typedef row[8]; // There are 9 rows, but we put no allowance for specificity and ease of access
+typedef int pair[2]; // ordered pairs
+typedef row[9]; // There are 9 rows, but we put no allowance for specificity and ease of access
 				// no data type?
+
+typedef struct records 
+{
+	int R[9][2];
+	int B[9][2];
+	int S[9][2];
+	int T[9][2];
+	int nR;
+	int nB;
+	int nS;
+	int nT;
+};
 
 int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
 {
@@ -30,19 +42,24 @@ void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-
 }
 
 
-int Remove(pair pos) // pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
+int Remove(pair pos, int go, struct records *g) 
+				// pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
 				// also assuming that we pass a whole coordinate here, not just two ints
 				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
 {
-	if (R == R - pos)
-		return 1;
-		
-	else if (B == B - pos)
-		return 0;
-
-	S = S - pos;
-
-	T = T - pos;
+	if (go == 0) // go is true
+		removeElement(g->R, pos, &g->nR);
+	else if (go != 0) // go is false
+		removeElement(g->B, pos, &g->nB);
+	removeElement(g->S, pos, &g->nS);
+	removeElement(g->T, pos, &g->nT);
+	
+	// if (R == R - pos)
+	// 	return 1;
+	// else if (B == B - pos)
+	// 	return 0;
+	// S = S - pos;
+	// T = T - pos;
 }
 
 int Replace(M pos) // 
