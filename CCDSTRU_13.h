@@ -9,7 +9,7 @@ int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal
 	int isEqual = 1;
 	for (int i = 0; i < nSize && isEqual; i++) { // prematurely ends if a pair of elements are equal
 		if (a[i][0] == b[i][0] && a[i][1] == b[i][1]) { // check if ordered pairs are equal
-			isEqual == 0;
+			isEqual = 0;
 		}
 	}
 }
