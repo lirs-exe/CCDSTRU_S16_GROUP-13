@@ -1,9 +1,37 @@
 
 typedef char phrase[2]; // 2 == rows - 1. Makes sure there are exactly Three Rows
+typedef int pair[1]; // ordered pairs
 typedef row[8]; // There are 9 rows, but we put no allowance for specificity and ease of access
+				// no data type?
+
+int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
+{
+	int isEqual = 1;
+	for (int i = 0; i < nSize && isEqual; i++) { // prematurely ends if a pair of elements are equal
+		if (a[i][0] == b[i][0] && a[i][1] == b[i][1]) { // check if ordered pairs are equal
+			isEqual == 0;
+		}
+	}
+}
+
+void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-) an element from an array
+{
+	int matchNotFound = 1;
+	for (int i = 0; i < *nSize && matchNotFound; i++) { // loop thru set
+		if (a[i][0] == remove[0] && a[i][1] == remove[1]) { // look for element matching what will be removed
+			for (int j = i; j < *nSize-1; j++) { // shift all existing elements forward replacing the element to be removed
+				a[j][0] = a[j+1][0];
+				a[j][1] = a[j+1][1];
+			}
+			a[*nSize][0] = 0; // "remove" last element in array (now redundant)
+			a[*nSize][1] = 0;
+			*nSize -= 1;
+		}
+	}
+}
 
 
-int Remove(M pos) // pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
+int Remove(pair pos) // pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
 				// also assuming that we pass a whole coordinate here, not just two ints
 				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
 {
@@ -111,7 +139,7 @@ typedef row[8]; // There are 9 rows, but we put no allowance for specificity and
 	int C[3] = {1, 2, 3}; 
 	int N[17] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 	row M[1] = {1, 1, 2, 1, 3, 1, 1, 2, 2, 2, 3, 2, 1, 3, 2, 3, 3, 3};
-	int R[8], B[8], S[8], T[8];
+	pair R[8], B[8], S[8], T[8];
 	int V[2] = {1, 0};
 	int val[17] = {0};
 	
