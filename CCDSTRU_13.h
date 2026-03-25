@@ -18,12 +18,22 @@ typedef struct records
 
 int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
 {
-	for (int i = 0; i < nSize; i++) { // loops through each ordered pair in the arrays
+	for (int i = 0; i < nSize; i++) { // loops through the array
 		if (a[i][0] != b[i][0] || a[i][1] != b[i][1]) { // check if ordered pairs are not equal
 			return 1; // arrays are not equal
 		}
 	}
 	return 0; // arrays are equal
+}
+
+int isElement(int a[][2], pair element, int nSize) // function to check if an element is in an array
+{
+	for (int i = 0; i < nSize; i++) { // loops through the array
+		if (a[i][0] == element[0] && a[i][1] == element[1]) { // check if element matches an ordered pair in the array
+			return 1; // element is in the array
+		}
+	}
+	return 0; // element is not in the array
 }
 
 void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-) an element from an array
