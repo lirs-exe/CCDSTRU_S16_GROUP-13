@@ -1,8 +1,10 @@
-
 typedef char phrase[2]; // 2 == rows - 1. Makes sure there are exactly Three Rows
 typedef int pair[2]; // ordered pairs
 typedef row[9]; // There are 9 rows, but we put no allowance for specificity and ease of access
 				// no data type?
+
+#define TRUE 1
+#define FALSE 0
 
 typedef struct records 
 {
@@ -28,12 +30,12 @@ int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal
 
 int isElement(int a[][2], pair element, int nSize) // function to check if an element is in an array
 {
-	for (int i = 0; i < nSize; i++) { // loops through the array
+	for (int i = 0; i < nSize; i++) { // loop through the array
 		if (a[i][0] == element[0] && a[i][1] == element[1]) { // check if element matches an ordered pair in the array
-			return 1; // element is in the array
+			return TRUE; // element is in the array
 		}
 	}
-	return 0; // element is not in the array
+	return FALSE; // element is not in the array
 }
 
 void addElement(int a[][2], pair add, int *nSize) // function to add (+) an element to an array
@@ -64,12 +66,12 @@ int Remove(pair pos, int go, struct records *g)
 				// also assuming that we pass a whole coordinate here, not just two ints
 				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
 {
-	if (go == 0) // go is true
-		removeElement(g->R, pos, &g->nR);
-	else if (go != 0) // go is false
-		removeElement(g->B, pos, &g->nB);
-	removeElement(g->S, pos, &g->nS);
-	removeElement(g->T, pos, &g->nT);
+	if (go == TRUE) // go is true
+		removeElement(g->R, pos, &g->nR); // remove pos from set R
+	else if (go == FALSE) // go is false
+		removeElement(g->B, pos, &g->nB); // remove pos from set B
+	removeElement(g->S, pos, &g->nS); // remove pos from set S
+	removeElement(g->T, pos, &g->nT); // remove pos from set T
 	
 	// if (R == R - pos)
 	// 	return 1;
@@ -79,24 +81,48 @@ int Remove(pair pos, int go, struct records *g)
 	// T = T - pos;
 }
 
-int Replace(M pos) // 
+int Replace(pair pos, int go, struct records *g)
 {
-	found = 0;
+	found = FALSE; // found is false
 
-	if (B == B - pos && found == 1)
-			go && B ;
-				
-	else if (found == 1)
-			go && R ;
+	if (go == TRUE) {
+		if (isElement(g->B, pos, g->nB) == TRUE) { // if pos is an element of B
+			removeElement(g->B, pos, &g->nB); // remove pos from set B
+			found = TRUE; // found is true
+		}
+		else if (isElement(g->R, pos, g->nR) == TRUE) // if pos is an element of R
+			found = TRUE; // found is true
+		else if (isElement(g->R, pos, g->nR) == FALSE) // if pos not is an element of R
+			addElement(g->R, pos, &g->nR); // add pos to R
+	}
 
-	else if (R == (R == pos)) // unsure.. it's supposed to be R == R U pos but idk how to do the U
-			go && ;
+	else if (go == FALSE) {
+		if (isElement(g->R, pos, g->nR) == TRUE) { // if pos is an element of R
+			removeElement(g->R, pos, &g->nR); // remove pos from set R
+			found = TRUE; // found is true
+		}
+		else if (isElement(g->B, pos, g->nB) == TRUE) // if pos is an element of B
+			found = TRUE; // found is true
+		else if (isElement(g->B, pos, g->nB) == FALSE) // if pos not is an element of B
+			addElement(g->B, pos, &g->nB); // add pos to B
+	}
 
-	if (S == (S == pos) || found == 0)
-		found && pos != S; // unsure.. t's supposed to be a pos is not an element of S
-
-	else if (T == (T == pos) && Expand(pos))
-		found && pos is an element of S && pos is NOT an element of T; // needs translation
+	if (found == TRUE && (isElement(g->S, pos, g->nS) == FALSE)) { // if found is true and pos is not in set S
+		addElement(g->S, pos, &g->nS); // add pos to set S
+		found = FALSE; // reset found (found is false)
+	}
+	
+	// found = 0;
+	// if (B == B - pos && found == 1)
+	// 		go && B ;	
+	// else if (found == 1)
+	// 		go && R ;
+	// else if (R == (R == pos)) // unsure.. it's supposed to be R == R U pos but idk how to do the U
+	// 		go && ;
+	// if (S == (S == pos) || found == 0)
+	// 	found && pos != S; // unsure.. t's supposed to be a pos is not an element of S
+	// else if (T == (T == pos) && Expand(pos))
+	// 	found && pos is an element of S && pos is NOT an element of T; // needs translation
 }
 
 int Expand(M, M pos)
