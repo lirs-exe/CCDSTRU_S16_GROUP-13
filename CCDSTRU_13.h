@@ -125,41 +125,43 @@ int Replace(pair pos, int go, struct records *g)
 	// 	found && pos is an element of S && pos is NOT an element of T; // needs translation
 }
 
-int Expand(M, M pos)
+int Expand(pair pos, int go, struct records *g)
 {
-	int (a, b) = pos; // i think this needs a for loop? for assignment
-
-	int u, d, r, k = M; // slightly wrong. they are ELEMENTS of M (coordinates), not M itself. idk how to isolate them...
-
-	// this whole segment needs for loop assigning i think
-	u = (a - 1, b);
-	d = (a + 1, b);
-	k = (a, b - 1);
-	r = (a, b + 1);
-	// segment done
-	
-	Remove(pos);
-
-	if (Replace(u) == 1)
-		go;
-
-	else if (Replace(d) == 1)
-		!go;
-
-	Replace(k);
-
-	Replace(r);
+	// int (a, b) = pos; // i think this needs a for loop? for assignment
+	// int u, d, r, k = M; // slightly wrong. they are ELEMENTS of M (coordinates), not M itself. idk how to isolate them...
+	// // this whole segment needs for loop assigning i think
+	// u = (a - 1, b);
+	// d = (a + 1, b);
+	// k = (a, b - 1);
+	// r = (a, b + 1);
+	// // segment done
+	// Remove(pos);
+	// if (Replace(u) == 1)
+	// 	go;
+	// else if (Replace(d) == 1)
+	// 	!go;
+	// Replace(k);
+	// Replace(r);
 }
 
-Update(M pos)
+Update(pair pos, int go, struct records *g)
 {
-	good = 0;
+	int good = FALSE;
 
-	if (S == (S == pos) && good == 1)
-		pos is NOT an element of S;
+	if (isElement(g->S, pos, &g->nS) == FALSE) {
+		addElement(g->S, pos, &g->nS);
+		good = TRUE;
+	}
+	else if (good == FALSE && (isElement(g->T, pos, &g->nT) == FALSE)) {
+		addElement(g->T, pos, &g->nT);
+		Expand(pos,go,g); // not sure pa
+	}
 	
-	if (T == (T == pos) && Expand(pos) == 1)
-		!good && pos is an element of S && pos is NOT an element of T;
+	// good = 0;
+	// if (S == (S == pos) && good == 1)
+	// 	pos is NOT an element of S;
+	// if (T == (T == pos) && Expand(pos) == 1)
+	// 	!good && pos is an element of S && pos is NOT an element of T;
 }
 
 NextPlayerMove(M pos)
