@@ -16,16 +16,15 @@ int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal
 
 void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-) an element from an array
 {
-	int matchNotFound = 1;
-	for (int i = 0; i < *nSize && matchNotFound; i++) { // loop thru set
+	for (int i = 0; i < *nSize; i++) { // loop through the array
 		if (a[i][0] == remove[0] && a[i][1] == remove[1]) { // look for element matching what will be removed
 			for (int j = i; j < *nSize-1; j++) { // shift all existing elements forward replacing the element to be removed
 				a[j][0] = a[j+1][0];
 				a[j][1] = a[j+1][1];
 			}
-			a[*nSize][0] = 0; // "remove" last element in array (now redundant)
-			a[*nSize][1] = 0;
-			*nSize -= 1;
+			// a[*nSize][0] = 0; // "remove" last element in array (now redundant) 
+			// a[*nSize][1] = 0; [angela: i dont think this is necessary]
+			(*nSize)--;
 		}
 	}
 }
