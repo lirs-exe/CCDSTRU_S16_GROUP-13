@@ -11,7 +11,7 @@ void GameProper()
 	printf("");
 	
 	if (over)
-		{playedExitCard()};
+		{playedEndCard()};
 }
 
 void EndCard()
