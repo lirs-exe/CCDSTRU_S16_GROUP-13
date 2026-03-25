@@ -2,8 +2,9 @@
 typedef char phrase[2];
 
 
-int Remove(pos[]) // pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
-				// also assuming that we pass a coordinate here, not just two ints
+int Remove(M pos) // pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
+				// also assuming that we pass a whole coordinate here, not just two ints
+				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
 {
 	if (R == R - pos)
 		return 1;
@@ -16,7 +17,7 @@ int Remove(pos[]) // pos, i'm assuming, stands for POSition (i.e. coordinates). 
 	T = T - pos;
 }
 
-int Replace(pos) // 
+int Replace(M pos) // 
 {
 	found = 0;
 
@@ -36,7 +37,7 @@ int Replace(pos) //
 		found && pos is an element of S && pos is NOT an element of T; // needs translation
 }
 
-int Expand(M, pos)
+int Expand(M, M pos)
 {
 	int (a, b) = pos; // i think this needs a for loop? for assignment
 
@@ -62,7 +63,7 @@ int Expand(M, pos)
 	Replace(r);
 }
 
-Update(pos)
+Update(M pos)
 {
 	good = 0;
 
@@ -73,7 +74,7 @@ Update(pos)
 		!good && pos is an element of S && pos is NOT an element of T;
 }
 
-NextPlayerMove(pos)
+NextPlayerMove(M pos)
 {
 	if (R == (R U pos) && S = (S U pos) && good == 1)
 		!over && start && go = 1;
