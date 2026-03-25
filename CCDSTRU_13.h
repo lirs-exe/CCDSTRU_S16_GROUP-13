@@ -36,6 +36,13 @@ int isElement(int a[][2], pair element, int nSize) // function to check if an el
 	return 0; // element is not in the array
 }
 
+void addElement(int a[][2], pair add, int *nSize) // function to add (+) an element to an array
+{
+	a[*nSize][0] = element[0]; // add element to end of array
+	a[*nSize][1] = element[1];
+	(*nSize)++;
+}
+
 void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-) an element from an array
 {
 	for (int i = 0; i < *nSize; i++) { // loop through the array
