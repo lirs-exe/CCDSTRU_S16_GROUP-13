@@ -103,3 +103,18 @@ void GameOver()
 	if (strcmp(result, "draw") == 0)
 		over && R = B;
 }
+
+typedef row[8]; // There are 9 rows, but we put no allowance for specificity and ease of access
+	
+	int i;
+	
+	int C[3] = {1, 2, 3}; 
+	int N[17] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+	row M[1] = {1, 1, 2, 1, 3, 1, 1, 2, 2, 2, 3, 2, 1, 3, 2, 3, 3, 3};
+	int R[8], B[8], S[8], T[8];
+	int V[2] = {1, 0};
+	int val[17] = {0};
+	
+	int good = 0, found = 0;
+	int go = 1;
+	int start = 1, ;
