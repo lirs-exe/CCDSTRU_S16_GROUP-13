@@ -8,10 +8,10 @@ typedef row[9]; // There are 9 rows, but we put no allowance for specificity and
 
 typedef struct records 
 {
-	int R[9][2];
-	int B[9][2];
-	int S[9][2];
-	int T[9][2];
+	pair R[9][2];
+	pair B[9][2];
+	pair S[9][2];
+	pair T[9][2];
 	int nR;
 	int nB;
 	int nS;
@@ -127,21 +127,52 @@ int Replace(pair pos, int go, struct records *g)
 
 int Expand(pair pos, int go, struct records *g)
 {
-	// int (a, b) = pos; // i think this needs a for loop? for assignment
-	// int u, d, r, k = M; // slightly wrong. they are ELEMENTS of M (coordinates), not M itself. idk how to isolate them...
+	// int (a, b) = pos; // i think this needs a for loop? for assignment <- wont make an (a, b) pair anymore since it doesnt seem to be necessary
+	
+	// int u, d, r, k = M; // slightly wrong. they are ELEMENTS of M (coordinates), not M itself. idk how to isolate them... <- this is just a fact being stated so idt it needs to be coded in
+	
 	// // this whole segment needs for loop assigning i think
 	// u = (a - 1, b);
+	// cell to left of pos
+	pair u;
+	u[0] = pos[0] - 1; // a-1
+	u[1] = pos[1]; // b
+	
 	// d = (a + 1, b);
+	// cell to right of pos
+	pair d;
+	d[0] = pos[0] + 1; // a+1
+	d[1] = pos[1]; // b
+	
 	// k = (a, b - 1);
+	// cell under pos
+	pair k;
+	k[0] = pos[0]; // a
+	k[1] = pos[1] - 1; // b-1
+	
 	// r = (a, b + 1);
+	// cell on top of pos
+	pair r;
+	r[0] = pos[0]
+	r[1] = pos[1] + 1
+	
 	// // segment done
+	
 	// Remove(pos);
+	Remove(pos, go, records);
+	
 	// if (Replace(u) == 1)
 	// 	go;
 	// else if (Replace(d) == 1)
 	// 	!go;
-	// Replace(k);
-	// Replace(r);
+	// ^^ this is mistranslated i believe
+	if (go == 1) {
+		Replace(u, go, records);
+	} else {
+		Replace(d, go, records);
+	}
+	Replace(k, go, records);
+	Replace(r, go, records);
 }
 
 Update(pair pos, int go, struct records *g)
