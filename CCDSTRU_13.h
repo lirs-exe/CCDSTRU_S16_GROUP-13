@@ -1,4 +1,4 @@
-typedef char phrase[2]; // 2 == rows - 1. Makes sure there are exactly Three Rows
+typedef char phrase[7]; // 2 == rows - 1. Makes sure there are exactly Three Rows
 typedef int pair[2]; // ordered pairs
 typedef row[9]; // There are 9 rows, but we put no allowance for specificity and ease of access
 				// no data type?
@@ -6,17 +6,22 @@ typedef row[9]; // There are 9 rows, but we put no allowance for specificity and
 #define TRUE 1
 #define FALSE 0
 
-typedef struct records 
+typedef struct
 {
 	pair R[9][2];
 	pair B[9][2];
 	pair S[9][2];
 	pair T[9][2];
-	int nR;
-	int nB;
-	int nS;
-	int nT;
-};
+	int nR = 0;
+	int nB = 0;
+	int nS = 0;
+	int nT = 0;
+	
+	int good = FALSE, found = FALSE;
+	int go = TRUE;
+	int start = TRUE;
+	int val = 0;
+} records;
 
 int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
 {
@@ -61,14 +66,14 @@ void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-
 }
 
 
-int Remove(pair pos, int go, struct records *g) 
+int Remove(pair pos, struct records *g) 
 				// pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
 				// also assuming that we pass a whole coordinate here, not just two ints
 				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
 {
-	if (go == TRUE) // go is true
+	if (g->go == TRUE) // go is true
 		removeElement(g->R, pos, &g->nR); // remove pos from set R
-	else if (go == FALSE) // go is false
+	else if (g->go == FALSE) // go is false
 		removeElement(g->B, pos, &g->nB); // remove pos from set B
 	removeElement(g->S, pos, &g->nS); // remove pos from set S
 	removeElement(g->T, pos, &g->nT); // remove pos from set T
@@ -81,35 +86,40 @@ int Remove(pair pos, int go, struct records *g)
 	// T = T - pos;
 }
 
-int Replace(pair pos, int go, struct records *g)
+int Replace(pair pos, struct records *g)
 {
-	found = FALSE; // found is false
+	g->found = FALSE; // found is false
 
-	if (go == TRUE) {
+	if (g->go == TRUE) {
 		if (isElement(g->B, pos, g->nB) == TRUE) { // if pos is an element of B
 			removeElement(g->B, pos, &g->nB); // remove pos from set B
-			found = TRUE; // found is true
+			g->found = TRUE; // found is true
 		}
-		else if (isElement(g->R, pos, g->nR) == TRUE) // if pos is an element of R
-			found = TRUE; // found is true
-		else if (isElement(g->R, pos, g->nR) == FALSE) // if pos not is an element of R
+		if (isElement(g->R, pos, g->nR) == TRUE) // if pos is an element of R <- in specs its a generic if, not elif
+			g->found = TRUE; // found is true
+		if (isElement(g->R, pos, g->nR) == FALSE) // if pos not is an element of R <- in specs its a generic if, not elif
 			addElement(g->R, pos, &g->nR); // add pos to R
 	}
 
-	else if (go == FALSE) {
+	else if (g->go == FALSE) {
 		if (isElement(g->R, pos, g->nR) == TRUE) { // if pos is an element of R
 			removeElement(g->R, pos, &g->nR); // remove pos from set R
-			found = TRUE; // found is true
+			g->found = TRUE; // found is true
 		}
-		else if (isElement(g->B, pos, g->nB) == TRUE) // if pos is an element of B
-			found = TRUE; // found is true
-		else if (isElement(g->B, pos, g->nB) == FALSE) // if pos not is an element of B
+		if (isElement(g->B, pos, g->nB) == TRUE) // if pos is an element of B <- in specs its a generic if, not elif
+			g->found = TRUE; // found is true
+		if (isElement(g->B, pos, g->nB) == FALSE) // if pos not is an element of B <- in specs its a generic if, not elif
 			addElement(g->B, pos, &g->nB); // add pos to B
 	}
 
-	if (found == TRUE && (isElement(g->S, pos, g->nS) == FALSE)) { // if found is true and pos is not in set S
+	if (g->found == TRUE && (isElement(g->S, pos, g->nS) == FALSE)) { // if found is true and pos is not in set S
 		addElement(g->S, pos, &g->nS); // add pos to set S
-		found = FALSE; // reset found (found is false)
+		g->found = FALSE; // reset found (found is false)
+	}
+	
+	if (g->found == TRUE && (isElement(g->S, pos, g->nS == TRUE)) && (isElement(g->T, pos, g->nT) == FALSE)) { // if found is true, pos is in set S, and pos is not in set T
+		addElement(g->T, pos, &g->nT); // add pos to set T
+		expand(pos, go, g); // expand(pos)
 	}
 	
 	// found = 0;
@@ -125,7 +135,7 @@ int Replace(pair pos, int go, struct records *g)
 	// 	found && pos is an element of S && pos is NOT an element of T; // needs translation
 }
 
-int Expand(pair pos, int go, struct records *g)
+int Expand(pair pos, struct records *g)
 {
 	// int (a, b) = pos; // i think this needs a for loop? for assignment <- wont make an (a, b) pair anymore since it doesnt seem to be necessary
 	
@@ -166,26 +176,26 @@ int Expand(pair pos, int go, struct records *g)
 	// else if (Replace(d) == 1)
 	// 	!go;
 	// ^^ this is mistranslated i believe
-	if (go == 1) {
-		Replace(u, go, records);
+	if (g->go == TRUE) {
+		Replace(u, records);
 	} else {
-		Replace(d, go, records);
+		Replace(d, records);
 	}
-	Replace(k, go, records);
-	Replace(r, go, records);
+	Replace(k, records);
+	Replace(r, records);
 }
 
-Update(pair pos, int go, struct records *g)
+Update(pair pos, struct records *g)
 {
-	int good = FALSE;
+	g->good = FALSE;
 
 	if (isElement(g->S, pos, &g->nS) == FALSE) {
 		addElement(g->S, pos, &g->nS);
-		good = TRUE;
+		g->good = TRUE;
 	}
-	else if (good == FALSE && (isElement(g->T, pos, &g->nT) == FALSE)) {
+	if (g->good == FALSE && (isElement(g->T, pos, &g->nT) == FALSE) && (isElement(g->S, pos, &g->nS) == TRUE)) {
 		addElement(g->T, pos, &g->nT);
-		Expand(pos,go,g); // not sure pa
+		Expand(pos, g); // not sure pa
 	}
 	
 	// good = 0;
@@ -195,9 +205,36 @@ Update(pair pos, int go, struct records *g)
 	// 	!good && pos is an element of S && pos is NOT an element of T;
 }
 
-NextPlayerMove(M pos)
+NextPlayerMove(pair pos, struct records *g)
 {
-	if (R == (R U pos) && S = (S U pos) && good == 1)
+	if (g->over == FALSE && g->start == TRUE && g->go == TRUE) { // over = false, start = true, go = true
+		addElement(g->R, pos, &g->nR); // add pos to R
+		addElement(g->S, pos, &g->nS); // add pos to S
+		g->good = TRUE; // good = true
+	}
+	if (g->over == FALSE && g->start == TRUE && g->go == FALSE) { // over = false, start = true, go = false
+		addElement(g->B, pos, &g->nB); // add pos to B
+		addElement(g->S, pos, &g->nS); // add pos to S
+		g->good = TRUE; // good = true
+	}
+	if (g->over == FALSE && g->start == FALSE && ((g->go == TRUE && (isElement(g->R, pos, g->nR) == TRUE)) || (g->go == FALSE && (isElement(g->B, pos, g->nB) == TRUE)))) { // im not translating this just trust me bro
+		Update(pos, g); // update(pos)
+		g->good = TRUE; // good = true
+	}
+	
+	if (g->start == TRUE && g->nR == 1 && g->nB == 1) { // start = true, size of R = 1, size of B = 1
+		g->start == FALSE; // start = false
+	}
+	if(g->over == FALSE && g->good == TRUE) { // over = false, start = true
+		g->good == FALSE; // negate good
+		if (g->go == TRUE) { // negate go
+			g->go = FALSE;
+		} else {
+			g->go = TRUE;
+		}
+		g->val = g->val + 1; // val + 1
+	}
+	/* if (R == (R U pos) && S = (S U pos) && good == 1)
 		!over && start && go = 1;
 
 	if (B == (B U pos) && S = (S U pos) && good == 1)
@@ -207,12 +244,23 @@ NextPlayerMove(M pos)
 		start && R = 1 && B = 1;
 	
 	if (good == 1 && go == 0 && val = val + 1)
-		!over && good;
+		!over && good; */
 }
 
-void GameOver()
+void GameOver(struct records *g)
 {
-	phrase result[7] = {"R wins", "B wins", "draw"};
+	if (g->over == TRUE) {
+		if (g->nR > g->nB) {
+			printf("R wins!");
+		}
+		if (g->nR < g->nB) {
+			printf("B wins!");
+		}
+		if (g->nR == g->nB) {
+			printf("Draw!");
+		}
+	}
+	/* phrase result[3] = {"R wins", "B wins", "draw"};
 
 	if (strcmp(result, "R wins") == 0)
 		over && R > B; // unsure
@@ -221,22 +269,9 @@ void GameOver()
 		over && R < B;
 
 	if (strcmp(result, "draw") == 0)
-		over && R = B;
+		over && R = B; */
 }
 
 typedef row[8]; // There are 9 rows, but we put no allowance for specificity and ease of access
 	
-	int i;
 	
-	int C[3] = {1, 2, 3}; 
-	int N[17] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-	row M[1] = {1, 1, 2, 1, 3, 1, 1, 2, 2, 2, 3, 2, 1, 3, 2, 3, 3, 3};
-	pair R[8], B[8], S[8], T[8];
-	int V[2] = {1, 0};
-	int val[17] = {0};
-	
-	int good = 0, found = 0;
-	int go = 1;
-	int start = 1, ;
-
-	int choice1; // stores the player's entry to the "start" prompt. is passed to the game ui function
