@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "CCDSTRU_13.h"
+#include "13_FUNCS.h"
 
 int main()
 {
@@ -12,11 +13,7 @@ int main()
 	row M[1] = {1, 1, 2, 1, 3, 1, 1, 2, 2, 2, 3, 2, 1, 3, 2, 3, 3, 3};
 	records gameRecords;
 	int V[2] = {1, 0};
-	int val[17] = {0};
-	
-	int good = FALSE, found = FALSE;
-	int go = TRUE;
-	int start = TRUE ;
+
 
 	int choice1; // stores the player's entry to the "start" prompt. is passed to the game ui function
 

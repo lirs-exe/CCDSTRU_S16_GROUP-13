@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 typedef char phrase[7]; // 2 == rows - 1. Makes sure there are exactly Three Rows
 typedef int pair[2]; // ordered pairs
 typedef row[9]; // There are 9 rows, but we put no allowance for specificity and ease of access
@@ -66,7 +69,7 @@ void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-
 }
 
 
-int Remove(pair pos, struct records *g) 
+void Remove(pair pos, struct records *g) 
 				// pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
 				// also assuming that we pass a whole coordinate here, not just two ints
 				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
@@ -86,7 +89,7 @@ int Remove(pair pos, struct records *g)
 	// T = T - pos;
 }
 
-int Replace(pair pos, struct records *g)
+void Replace(pair pos, struct records *g)
 {
 	g->found = FALSE; // found is false
 
@@ -135,7 +138,7 @@ int Replace(pair pos, struct records *g)
 	// 	found && pos is an element of S && pos is NOT an element of T; // needs translation
 }
 
-int Expand(pair pos, struct records *g)
+void Expand(pair pos, struct records *g)
 {
 	// int (a, b) = pos; // i think this needs a for loop? for assignment <- wont make an (a, b) pair anymore since it doesnt seem to be necessary
 	
@@ -185,7 +188,7 @@ int Expand(pair pos, struct records *g)
 	Replace(r, records);
 }
 
-Update(pair pos, struct records *g)
+void Update(pair pos, struct records *g)
 {
 	g->good = FALSE;
 
@@ -205,19 +208,19 @@ Update(pair pos, struct records *g)
 	// 	!good && pos is an element of S && pos is NOT an element of T;
 }
 
-NextPlayerMove(pair pos, struct records *g)
+void NextPlayerMove(pair pos, struct records *g) // always assume over == FALSE
 {
-	if (g->over == FALSE && g->start == TRUE && g->go == TRUE) { // over = false, start = true, go = true
+	if (g->start == TRUE && g->go == TRUE) { // over = false, start = true, go = true
 		addElement(g->R, pos, &g->nR); // add pos to R
 		addElement(g->S, pos, &g->nS); // add pos to S
 		g->good = TRUE; // good = true
 	}
-	if (g->over == FALSE && g->start == TRUE && g->go == FALSE) { // over = false, start = true, go = false
+	if (g->start == TRUE && g->go == FALSE) { // over = false, start = true, go = false
 		addElement(g->B, pos, &g->nB); // add pos to B
 		addElement(g->S, pos, &g->nS); // add pos to S
 		g->good = TRUE; // good = true
 	}
-	if (g->over == FALSE && g->start == FALSE && ((g->go == TRUE && (isElement(g->R, pos, g->nR) == TRUE)) || (g->go == FALSE && (isElement(g->B, pos, g->nB) == TRUE)))) { // im not translating this just trust me bro
+	if (g->start == FALSE && ((g->go == TRUE && (isElement(g->R, pos, g->nR) == TRUE)) || (g->go == FALSE && (isElement(g->B, pos, g->nB) == TRUE)))) { // im not translating this just trust me bro
 		Update(pos, g); // update(pos)
 		g->good = TRUE; // good = true
 	}
@@ -225,7 +228,7 @@ NextPlayerMove(pair pos, struct records *g)
 	if (g->start == TRUE && g->nR == 1 && g->nB == 1) { // start = true, size of R = 1, size of B = 1
 		g->start == FALSE; // start = false
 	}
-	if(g->over == FALSE && g->good == TRUE) { // over = false, start = true
+	if (g->good == TRUE) { // over = false, start = true
 		g->good == FALSE; // negate good
 		if (g->go == TRUE) { // negate go
 			g->go = FALSE;
