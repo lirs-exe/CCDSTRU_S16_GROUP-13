@@ -95,7 +95,7 @@ void Replace(pair pos, records *g)
 		g->found = FALSE; // reset found (found is false)
 	}
 	
-	if (g->found == TRUE && (isElement(g->S, pos, g->nS == TRUE)) && (isElement(g->T, pos, g->nT) == FALSE)) { // if found is true, pos is in set S, and pos is not in set T
+	if (g->found == TRUE && (isElement(g->S, pos, g->nS) == TRUE) && (isElement(g->T, pos, g->nT) == FALSE)) { // if found is true, pos is in set S, and pos is not in set T
 		addElement(g->T, pos, &g->nT); // add pos to set T
 		Expand(pos, g); // expand(pos)
 	}
