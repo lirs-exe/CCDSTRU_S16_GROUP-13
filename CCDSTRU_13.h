@@ -15,15 +15,15 @@ typedef struct
 	pair B[9][2];
 	pair S[9][2];
 	pair T[9][2];
-	int nR = 0;
-	int nB = 0;
-	int nS = 0;
-	int nT = 0;
+	int nR
+	int nB
+	int nS
+	int nT
 	
-	int good = FALSE, found = FALSE;
-	int go = TRUE;
-	int start = TRUE;
-	int val = 0;
+	int good, found;
+	int go
+	int start
+	int val
 } records;
 
 int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
