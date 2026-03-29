@@ -16,7 +16,8 @@ typedef struct
 	int nS;
 	int nT;
 	
-	int good, found;
+	int good;
+	int found;
 	int go;
 	int start;
 	int val;

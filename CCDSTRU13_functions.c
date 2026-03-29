@@ -68,7 +68,7 @@ void Replace(pair pos, records *g)
 {
 	g->found = FALSE; // found is false
 
-	if (g->go == TRUE) {
+	if (g->go == TRUE) { // red
 		if (isElement(g->B, pos, g->nB) == TRUE) { // if pos is an element of B
 			removeElement(g->B, pos, &g->nB); // remove pos from set B
 			g->found = TRUE; // found is true
@@ -79,7 +79,7 @@ void Replace(pair pos, records *g)
 			addElement(g->R, pos, &g->nR); // add pos to R
 	}
 
-	else if (g->go == FALSE) {
+	else if (g->go == FALSE) { // blue
 		if (isElement(g->R, pos, g->nR) == TRUE) { // if pos is an element of R
 			removeElement(g->R, pos, &g->nR); // remove pos from set R
 			g->found = TRUE; // found is true
@@ -203,26 +203,16 @@ void NextPlayerMove(pair pos, records *g) // always assume over == FALSE
 	if (g->start == TRUE && g->nR == 1 && g->nB == 1) { // start = true, size of R = 1, size of B = 1
 		g->start = FALSE; // start = false
 	}
+	
 	if (g->good == TRUE) { // over = false, start = true
 		g->good = FALSE; // negate good
 		if (g->go == TRUE) { // negate go
 			g->go = FALSE;
-		} else {
+		} else if (g->go == FALSE) {
 			g->go = TRUE;
 		}
 		g->val = g->val + 1; // val + 1
 	}
-	/* if (R == (R U pos) && S = (S U pos) && good == 1)
-		!over && start && go = 1;
-
-	if (B == (B U pos) && S = (S U pos) && good == 1)
-		!over && start && go = 0;
-	
-	if (start == 0)
-		start && R = 1 && B = 1;
-	
-	if (good == 1 && go == 0 && val = val + 1)
-		!over && good; */
 }
 
 void GameOver(records *g)
@@ -238,15 +228,5 @@ void GameOver(records *g)
 			printf("Draw!");
 		}
 	}
-	/* phrase result[3] = {"R wins", "B wins", "draw"};
-
-	if (strcmp(result, "R wins") == 0)
-		over && R > B; // unsure
-
-	if (strcmp(result, "B wins") == 0)
-		over && R < B;
-
-	if (strcmp(result, "draw") == 0)
-		over && R = B; */
 }	
 	

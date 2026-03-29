@@ -31,11 +31,11 @@ void GameProper (records *g) {
 	// main game
 	do {
 		movePrompt(g);
-		if (g->go == TRUE) {
+/* 		if (g->go == TRUE) {
 			g->go = FALSE;
 		} else {
 			g->go = TRUE;
-		}
+		} */
 	} while (isGameOver(g) == FALSE);
 	
 	// ending

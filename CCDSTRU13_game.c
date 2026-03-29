@@ -99,7 +99,8 @@ void updateGrid(records *g) { // use this to update grid after every move
 	printf("     -------------------------\n");
 	printf("     |	     |	     |	     |\n");
 	printf("   3 |   %c   |   %c   |   %c   |\n", grid[2][0], grid[2][1], grid[2][2]);
-	printf("     |	     |	     |	     |\n\n\n");
+	printf("     |	     |	     |	     |\n");
+	printf("     ---------Move %d---------\n\n", g->val);
 }
 
 void movePrompt(records *g) {
@@ -122,7 +123,7 @@ void movePrompt(records *g) {
 			printf("It is the RED player's turn. Please input valid y coordinate: ");
 			scanf("%d", &move[1]);
 		} while (move[1] > 3 || move[1] < 1);
-	} else {
+	} else if (g->go == FALSE) {
 		// ask for x
 		do {
 			if (move[0] > 3 || move[0] < 1) {
@@ -142,12 +143,6 @@ void movePrompt(records *g) {
 	}
 	
 	NextPlayerMove(move, g);
-
-	if (g->go == TRUE) {
-		g->go = FALSE;
-	} else {
-		g->go = TRUE;
-	}
 
 }
 
