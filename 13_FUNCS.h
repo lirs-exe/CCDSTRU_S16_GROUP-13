@@ -142,6 +142,13 @@ void movePrompt(struct records *g) {
 	}
 	
 	NextPlayerMove(move, g);
+
+	if (go == TRUE) {
+		go = FALSE;
+	} else {
+		go = TRUE;
+	}
+
 }
 
 // commenting this for now because im rewriting things
