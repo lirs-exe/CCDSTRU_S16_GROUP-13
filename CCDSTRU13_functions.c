@@ -3,22 +3,24 @@
 
 int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
 {
+	int isEqual = FALSE;
 	for (int i = 0; i < nSize; i++) { // loops through the array
 		if (a[i][0] != b[i][0] || a[i][1] != b[i][1]) { // check if ordered pairs are not equal
-			return 1; // arrays are not equal
+			isEqual = TRUE; // arrays are not equal
 		}
 	}
-	return 0; // arrays are equal
+	return isEqual; // arrays are equal
 }
 
 int isElement(int a[][2], pair element, int nSize) // function to check if an element is in an array
 {
+	int isElem = FALSE;
 	for (int i = 0; i < nSize; i++) { // loop through the array
 		if (a[i][0] == element[0] && a[i][1] == element[1]) { // check if element matches an ordered pair in the array
-			return TRUE; // element is in the array
+			isElem = TRUE; // element is in the array
 		}
 	}
-	return FALSE; // element is not in the array
+	return isElem; // element is not in the array
 }
 
 void addElement(int a[][2], pair add, int *nSize) // function to add (+) an element to an array
@@ -195,7 +197,7 @@ void NextPlayerMove(pair pos, records *g) // always assume over == FALSE
 		addElement(g->S, pos, &g->nS); // add pos to S
 		g->good = TRUE; // good = true
 	}
-	if (g->start == FALSE && ((g->go == TRUE && (isElement(g->R, pos, g->nR) == TRUE)) || (g->go == FALSE && (isElement(g->B, pos, g->nB) == TRUE)))) { // im not translating this just trust me bro
+	if (g->start == FALSE && ((g->go == TRUE && (isElement(g->R, pos, g->nR) == TRUE)) || (g->go == FALSE && (isElement(g->B, pos, g->nB) == TRUE)))) { // start = false, pos is in r or in b
 		Update(pos, g); // update(pos)
 		g->good = TRUE; // good = true
 	}
@@ -217,16 +219,15 @@ void NextPlayerMove(pair pos, records *g) // always assume over == FALSE
 
 void GameOver(records *g)
 {
-	if (g->over == TRUE) {
-		if (g->nR > g->nB) {
-			printf("R wins!");
-		}
-		if (g->nR < g->nB) {
-			printf("B wins!");
-		}
-		if (g->nR == g->nB) {
-			printf("Draw!");
-		}
+	if (g->nR > g->nB) {
+		printf("R wins!");
 	}
+	if (g->nR < g->nB) {
+		printf("B wins!");
+	}
+	if (g->nR == g->nB) {
+		printf("Draw!");
+	}
+	printf("\n");
 }	
 	

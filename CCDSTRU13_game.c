@@ -109,37 +109,37 @@ void movePrompt(records *g) {
 	if (g->go == TRUE) {
 		// ask for x
 		do {
-			if (move[0] > 3 || move[0] < 1) {
-				printf("Invalid input!\n");
-			}
-			printf("It is the RED player's turn. Please input valid x coordinate: ");
-			scanf("%d", &move[0]);
-		} while (move[0] > 3 || move[0] < 1);
-		// ask for y
-		do {
 			if (move[1] > 3 || move[1] < 1) {
 				printf("Invalid input!\n");
 			}
-			printf("It is the RED player's turn. Please input valid y coordinate: ");
+			printf("It is the RED player's turn. Please input valid x coordinate: ");
 			scanf("%d", &move[1]);
 		} while (move[1] > 3 || move[1] < 1);
+		// ask for y
+		do {
+			if (move[0] > 3 || move[0] < 1) {
+				printf("Invalid input!\n");
+			}
+			printf("It is the RED player's turn. Please input valid y coordinate: ");
+			scanf("%d", &move[0]);
+		} while (move[0] > 3 || move[0] < 1);
 	} else if (g->go == FALSE) {
 		// ask for x
 		do {
-			if (move[0] > 3 || move[0] < 1) {
+			if (move[1] > 3 || move[1] < 1) {
 				printf("Invalid input!\n");
 			}
 			printf("It is the BLUE player's turn. Please input valid x coordinate: ");
 			scanf("%d", &move[0]);
-		} while (move[0] > 3 || move[0] < 1);
+		} while (move[1] > 3 || move[1] < 1);
 		// ask for y
 		do {
-			if (move[1] > 3 || move[1] < 1) {
+			if (move[0] > 3 || move[0] < 1) {
 				printf("Invalid input!\n");
 			}
 			printf("It is the BLUE player's turn. Please input valid y coordinate: ");
-			scanf("%d", &move[1]);
-		} while (move[1] > 3 || move[1] < 1);
+			scanf("%d", &move[0]);
+		} while (move[0] > 3 || move[0] < 1);
 	}
 	
 	NextPlayerMove(move, g);
