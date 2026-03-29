@@ -1,10 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-
 typedef char phrase[7]; // 2 == rows - 1. Makes sure there are exactly Three Rows
 typedef int pair[2]; // ordered pairs
-typedef row[9]; // There are 9 rows, but we put no allowance for specificity and ease of access
-				// no data type?
 
 #define TRUE 1
 #define FALSE 0
@@ -15,15 +10,16 @@ typedef struct
 	pair B[9][2];
 	pair S[9][2];
 	pair T[9][2];
-	int nR
-	int nB
-	int nS
-	int nT
+	int nR;
+	int nB;
+	int nS;
+	int nT;
 	
 	int good, found;
-	int go
-	int start
-	int val
+	int go;
+	int start;
+	int val;
+	int over;
 } records;
 
 int isEqual(int a[][2], int b[][2], int nSize) // function to check if two equal size arrays are equal
@@ -69,10 +65,10 @@ void removeElement(int a[][2], pair remove, int *nSize) // function to remove (-
 }
 
 
-void Remove(pair pos, struct records *g) 
+void Remove(pair pos, records *g) 
 				// pos, i'm assuming, stands for POSition (i.e. coordinates). pls correct me if i'm wrong :'D
 				// also assuming that we pass a whole coordinate here, not just two ints
-				// UPDATE: the pdf keeps mentioning that the parameter is (pos ∈ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
+				// UPDATE: the pdf keeps mentioning that the parameter is (pos âˆˆ M), so I'm thinking that M mighttt be a structure and pos is its array alias?
 {
 	if (g->go == TRUE) // go is true
 		removeElement(g->R, pos, &g->nR); // remove pos from set R
@@ -89,7 +85,7 @@ void Remove(pair pos, struct records *g)
 	// T = T - pos;
 }
 
-void Replace(pair pos, struct records *g)
+void Replace(pair pos, records *g)
 {
 	g->found = FALSE; // found is false
 
@@ -138,7 +134,7 @@ void Replace(pair pos, struct records *g)
 	// 	found && pos is an element of S && pos is NOT an element of T; // needs translation
 }
 
-void Expand(pair pos, struct records *g)
+void Expand(pair pos, records *g)
 {
 	// int (a, b) = pos; // i think this needs a for loop? for assignment <- wont make an (a, b) pair anymore since it doesnt seem to be necessary
 	
@@ -166,8 +162,8 @@ void Expand(pair pos, struct records *g)
 	// r = (a, b + 1);
 	// cell on top of pos
 	pair r;
-	r[0] = pos[0]
-	r[1] = pos[1] + 1
+	r[0] = pos[0];
+	r[1] = pos[1] + 1;
 	
 	// // segment done
 	
@@ -188,7 +184,7 @@ void Expand(pair pos, struct records *g)
 	Replace(r, records);
 }
 
-void Update(pair pos, struct records *g)
+void Update(pair pos, records *g)
 {
 	g->good = FALSE;
 
@@ -208,7 +204,7 @@ void Update(pair pos, struct records *g)
 	// 	!good && pos is an element of S && pos is NOT an element of T;
 }
 
-void NextPlayerMove(pair pos, struct records *g) // always assume over == FALSE
+void NextPlayerMove(pair pos, records *g) // always assume over == FALSE
 {
 	if (g->start == TRUE && g->go == TRUE) { // over = false, start = true, go = true
 		addElement(g->R, pos, &g->nR); // add pos to R
@@ -250,7 +246,7 @@ void NextPlayerMove(pair pos, struct records *g) // always assume over == FALSE
 		!over && good; */
 }
 
-void GameOver(struct records *g)
+void GameOver(records *g)
 {
 	if (g->over == TRUE) {
 		if (g->nR > g->nB) {
@@ -273,8 +269,5 @@ void GameOver(struct records *g)
 
 	if (strcmp(result, "draw") == 0)
 		over && R = B; */
-}
-
-typedef row[8]; // There are 9 rows, but we put no allowance for specificity and ease of access
-	
+}	
 	
