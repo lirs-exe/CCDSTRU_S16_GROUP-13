@@ -6,10 +6,10 @@ typedef int pair[2]; // ordered pairs
 
 typedef struct
 {
-	pair R[9][2];
-	pair B[9][2];
-	pair S[9][2];
-	pair T[9][2];
+	pair R[9];
+	pair B[9];
+	pair S[9];
+	pair T[9];
 	int nR;
 	int nB;
 	int nS;
@@ -44,8 +44,8 @@ int isElement(int a[][2], pair element, int nSize) // function to check if an el
 
 void addElement(int a[][2], pair add, int *nSize) // function to add (+) an element to an array
 {
-	a[*nSize][0] = element[0]; // add element to end of array
-	a[*nSize][1] = element[1];
+	a[*nSize][0] = add[0]; // add element to end of array
+	a[*nSize][1] = add[1];
 	(*nSize)++;
 }
 
@@ -118,7 +118,7 @@ void Replace(pair pos, records *g)
 	
 	if (g->found == TRUE && (isElement(g->S, pos, g->nS == TRUE)) && (isElement(g->T, pos, g->nT) == FALSE)) { // if found is true, pos is in set S, and pos is not in set T
 		addElement(g->T, pos, &g->nT); // add pos to set T
-		expand(pos, go, g); // expand(pos)
+		expand(pos, g); // expand(pos)
 	}
 	
 	// found = 0;
@@ -168,7 +168,7 @@ void Expand(pair pos, records *g)
 	// // segment done
 	
 	// Remove(pos);
-	Remove(pos, go, records);
+	Remove(pos, g);
 	
 	// if (Replace(u) == 1)
 	// 	go;
@@ -176,23 +176,23 @@ void Expand(pair pos, records *g)
 	// 	!go;
 	// ^^ this is mistranslated i believe
 	if (g->go == TRUE) {
-		Replace(u, records);
+		Replace(u, g);
 	} else {
-		Replace(d, records);
+		Replace(d, g);
 	}
-	Replace(k, records);
-	Replace(r, records);
+	Replace(k, g);
+	Replace(r, g);
 }
 
 void Update(pair pos, records *g)
 {
 	g->good = FALSE;
 
-	if (isElement(g->S, pos, &g->nS) == FALSE) {
-		addElement(g->S, pos, &g->nS);
+	if (isElement(g->S, pos, g->nS) == FALSE) {
+		addElement(g->S, pos, &(g->nS));
 		g->good = TRUE;
 	}
-	if (g->good == FALSE && (isElement(g->T, pos, &g->nT) == FALSE) && (isElement(g->S, pos, &g->nS) == TRUE)) {
+	if (g->good == FALSE && (isElement(g->T, pos, g->nT) == FALSE) && (isElement(g->S, pos, g->nS) == TRUE)) {
 		addElement(g->T, pos, &g->nT);
 		Expand(pos, g); // not sure pa
 	}
@@ -222,10 +222,10 @@ void NextPlayerMove(pair pos, records *g) // always assume over == FALSE
 	}
 	
 	if (g->start == TRUE && g->nR == 1 && g->nB == 1) { // start = true, size of R = 1, size of B = 1
-		g->start == FALSE; // start = false
+		g->start = FALSE; // start = false
 	}
 	if (g->good == TRUE) { // over = false, start = true
-		g->good == FALSE; // negate good
+		g->good = FALSE; // negate good
 		if (g->go == TRUE) { // negate go
 			g->go = FALSE;
 		} else {
