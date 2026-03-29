@@ -24,45 +24,24 @@ int isGameOver (records *g) {
 }
 
 void GameProper (records *g) {
-	int playAgain = TRUE;
-	char input = 'y';
+	// instructions
+	Instructions();
+	system("cls");
+	
+	// main game
 	do {
-		// instructions
-		Instructions();
-		system("cls");
-		
-		// main game
-		do {
-			movePrompt(g);
-			if (g->go == TRUE) {
-				g->go = FALSE;
-			} else {
-				g->go = TRUE;
-			}
-		} while (isGameOver(g) == FALSE);
-		
-		// ending
-		GameOver(g);
-		printf("\n");
-		EndCard();
-		
-		// play again prompt
-		/* do {
-			if (input != 'y' || input != 'n') {
-				GameOver(g);
-				printf("\n");
-				EndCard();
-				printf("\n\nInvalid input!");
-			}
-			printf("\n\n Play again? [y/n]: ");
-			scanf("%c", &input);
-		} while (input != 'y' || input != 'n');
-		if (input == 'y') {
-			playAgain = TRUE;
+		movePrompt(g);
+		if (g->go == TRUE) {
+			g->go = FALSE;
 		} else {
-			playAgain = FALSE;
-		} */
-	} while (playAgain == TRUE);
+			g->go = TRUE;
+		}
+	} while (isGameOver(g) == FALSE);
+	
+	// ending
+	GameOver(g);
+	printf("\n");
+	EndCard();
 }
 
 
